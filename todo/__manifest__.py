@@ -37,7 +37,7 @@
         ####################################################
         ##      Javascript files to build React app       ##
         ####################################################
-        'web.assets_frontend': [
+        'todo.assets': [
             'todo/static/src/index.js',
             'todo/static/src/components/*.js',
             'todo/static/src/index.css',
