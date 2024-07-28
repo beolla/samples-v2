@@ -36,8 +36,8 @@ class JsxAsset(JavascriptAsset):
 
 class AssetsBundleJsx(AssetsBundle):
 
-    def __init__(self, name, files, env=None, css=True, js=True):
-        super(AssetsBundleJsx, self).__init__(name, files, env=env, css=css, js=js)
+    def __init__(self, bundle_name, files, external_assets, env, css=True, js=True, debug_assets=False, rtl=False, assets_params=None):
+        super(AssetsBundleJsx, self).__init__(bundle_name, files, external_assets, env=env, css=css, js=js, debug_assets=debug_assets, rtl=rtl, assets_params=assets_params)
         for idx, js in enumerate(self.javascripts):
             # only run transpiler on our own custom script.
             # In production, a better way to distinguish jsx
@@ -45,7 +45,7 @@ class AssetsBundleJsx(AssetsBundle):
             if js.url.find('todo') >= 0:
                 self.javascripts[idx] = JsxAsset(self, url=js.url, filename=js._filename, inline=js.inline)
 
-    def js(self, is_minified=True):
+    def js(self):
         """
         Override the base implementation to 
         run transpiler on js content, and re-save attachment.
@@ -54,7 +54,7 @@ class AssetsBundleJsx(AssetsBundle):
         Further optimization needed 
         """ 
         # _logger.info('calling to js of ' + self.name )
-        ira = super().js(is_minified=is_minified)
+        ira = super().js()
         return ira
         # try:
         #     content_bundle = self.transpile_jsx(ira.raw)
